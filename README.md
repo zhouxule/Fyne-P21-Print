@@ -66,6 +66,11 @@ go build -o nelko-print ./cmd/nelko-print
 ```powershell
 go build -o nelko-print.exe ./cmd/nelko-print
 ```
+Use Fyne to avoid the black console window:
+```powershell
+go install fyne.io/fyne/v2/cmd/fyne@latest
+fyne package -os windows -icon Icon.png --sourceDir ./cmd/nelko-print
+```
 
 ### Cross-compile Windows from Linux
 ```bash

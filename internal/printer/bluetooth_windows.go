@@ -4,7 +4,7 @@ package printer
 
 import (
 	"fmt"
-	"os"
+//	"os"
 	"strings"
 
 	"golang.org/x/sys/windows/registry"

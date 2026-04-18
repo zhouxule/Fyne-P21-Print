@@ -558,6 +558,12 @@ func (a *App) loadImage() {
 			return
 		}
 
+		// --- rotate 90 degrees clockwise if width > height ---
+		if img.Bounds().Dx() > img.Bounds().Dy() {
+			img = rotate90(img)
+		}
+		// ------------------------------------
+
 		a.sourceImg = img
 		a.updatePreview()
 
@@ -648,4 +654,18 @@ func (a *App) print() {
 		}
 		a.printBtn.Enable()
 	}()
+}
+
+// Rotate the image 90 degrees clockwise
+func rotate90(img image.Image) image.Image {
+	bounds := img.Bounds()
+	// exchange width and height
+	newImg := image.NewRGBA(image.Rect(0, 0, bounds.Dy(), bounds.Dx()))
+	for x := 0; x < bounds.Dx(); x++ {
+		for y := 0; y < bounds.Dy(); y++ {
+			// pixel at (x, y) in original goes to (height - y - 1, x) in new image
+			newImg.Set(bounds.Dy()-y-1, x, img.At(x, y))
+		}
+	}
+	return newImg
 }
